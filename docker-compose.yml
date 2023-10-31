@@ -1,0 +1,19 @@
+version: '3.5'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nest-docker-postgres3     
+    command:  npm run start:dev
+    volumes:
+      - ./src:/app/src
+    networks:
+      - pgcluster
+      - tacko-cluster
+     
+networks:
+  pgcluster:
+  tacko-cluster:
+    external: true
