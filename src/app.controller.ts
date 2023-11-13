@@ -37,4 +37,11 @@ export class AppController {
     const user= await this.appService.findOne(data)
     return user
   }
+
+  @MessagePattern('update_user')
+  async updateUser(id:string,data:UserDto){
+    console.log(data)
+    const retour= await this.appService.updateUser(id,data)
+    return retour
+  }
 }

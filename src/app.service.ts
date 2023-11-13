@@ -1,9 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { GetUserRequest } from './models/get-user-request.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserDto } from './models/dto/user.dto';
+import { UserDto,UpdateUserDto } from './models/dto/user.dto';
 import { User } from './models/user.models';
+import { GetUserRequest } from './models/get-user-request.dto';
 
 @Injectable()
 export class AppService {
@@ -63,6 +63,15 @@ export class AppService {
     } catch (error) {
       console.log(error)
       throw new HttpException('An error occurred while find the user', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async updateUser(id:string,updateUserDto:UpdateUserDto){
+    try {
+      return await this.userRepo.update(id,updateUserDto)
+    } catch (error) {
+      console.log(error)
+      throw new HttpException('Erreur lors de la modification de l\'utilisateur', HttpStatus.BAD_REQUEST);
     }
   }
 }
