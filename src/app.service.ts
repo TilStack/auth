@@ -54,4 +54,15 @@ export class AppService {
       throw new HttpException('An error occurred while registering the user', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async findOne(data:any){
+    try {
+      const user= await this.userRepo.findOne({where:{email:data.email}})
+      console.log(user)
+      return {...user}
+    } catch (error) {
+      console.log(error)
+      throw new HttpException('An error occurred while find the user', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }

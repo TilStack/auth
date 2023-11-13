@@ -19,6 +19,9 @@ export class User{
     @Column({nullable:false,unique:true})
     phoneNumber:string
 
+    @Column({nullable:true})
+    imageUrl:string
+
     @OneToMany(()=>Order,(order)=>order.user)
     orders?:Order[]
 

@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { BadRequestException, Controller, Get, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { AppService } from './app.service';
 import { MessagePattern } from '@nestjs/microservices';
 import { UserDto } from './models/dto/user.dto';
@@ -29,5 +29,12 @@ export class AppController {
     const retour = await this.appService.createUser(data)
     console.log("4....................."+retour.id)
     return retour
+  }
+
+  @MessagePattern('find_user')
+  async getOneUser(data:any){
+    console.log('.....................'+data.email+'....................')
+    const user= await this.appService.findOne(data)
+    return user
   }
 }
